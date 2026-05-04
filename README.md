@@ -2,6 +2,8 @@
 
 基于 [百度 UIDGenerator](https://github.com/baidu/uid-generator) 的 **Spring Boot 3** Starter，为分布式系统提供高性能、高可用的唯一 ID 生成服务。
 
+代码fork自 [uid-springboot-starter](https://gitee.com/mrdjun/uid-springboot-starter/tree/master)，并在此基础上添加了额外的数据源配置，再次感谢 [mrdjun](https://gitee.com/mrdjun) 。
+
 > 本项目已针对 **Spring Boot 3.x / JDK 17+** 环境进行深度适配与改造。
 
 ---
@@ -15,7 +17,6 @@
 | **Epoch 起点更新** | 默认 `2026-04-30`，避免原版 `2016-05-20` 时间戳耗尽问题 |
 | **独立数据源** | DB 模式下使用 `fun.uid.datasource` 前缀配置 **独立 DataSource**，不干扰主业务数据库 |
 | **编程式事务** | `DatasourceWorkerIdAssigner` 采用 MyBatis 原生编程式事务（手动 `commit/rollback/close`），不依赖 Spring `@Transactional`，确保独立数据源场景下事务边界清晰可控 |
-| **MyBatis Plus 集成** | 提供 `IdGenerator` 桥接 MyBatis Plus 的 `IdentifierGenerator` 接口，可作为全局 ID 生成器 |
 
 ---
 
@@ -23,8 +24,8 @@
 
 ```xml
 <dependency>
-    <groupId>cn.mrdjun</groupId>
-    <artifactId>uid-springboot-starter</artifactId>
+    <groupId>io.github.sunjieyi60</groupId>
+    <artifactId>baidu-uid-spring-boot3-starter</artifactId>
     <version>1.0</version>
 </dependency>
 ```

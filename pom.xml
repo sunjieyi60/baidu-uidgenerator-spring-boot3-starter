@@ -4,9 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>uid-springboot-starter</artifactId>
-    <groupId>cn.mrdjun</groupId>
+    <artifactId>baidu-uidgenerator-spring-boot3-starter</artifactId>
+    <groupId>io.github.sunjieyi60</groupId>
     <version>1.0</version>
+    <name>baidu-uidgenerator-spring-boot3-starter</name>
 
     <description>
         算法来源于百度：https://github.com/baidu/uid-generator/blob/master/README.zh_cn.md
@@ -15,12 +16,25 @@
         此外，还提供了基于内存（缓冲存储、连续发号）的全局发号器以及支持JPA的Identity策略生成器。
         可通过properties配置的方式切换生成环境，轻松上手使用。
     </description>
+    <url>https://github.com/sunjieyi60/baidu-uidgenerator-spring-boot3-starter</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/sunjieyi60/baidu-uidgenerator-spring-boot3-starter</url>
+        <connection>scm:git:https://github.com/sunjieyi60/baidu-uidgenerator-spring-boot3-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/sunjieyi60/baidu-uidgenerator-spring-boot3-starter.git</developerConnection>
+    </scm>
 
     <developers>
         <developer>
-            <name>MrDJun</name>
-            <email>mr.djun@qq.com</email>
-            <timezone>2021-5-11 14:23:20</timezone>
+            <name>sunjieyi60</name>
+            <email>sunjieyi60@gmail.com</email>
         </developer>
     </developers>
 
@@ -34,7 +48,6 @@
         <commons-lang.version>2.6</commons-lang.version>
         <mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
         <commons-collections.version>3.2.2</commons-collections.version>
-        <!-- Lombok 显式升级以兼容 JDK 17+ -->
         <lombok.version>1.18.30</lombok.version>
     </properties>
 
@@ -124,18 +137,78 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
-                    <compilerArgs>
-                        <arg>--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <distributionManagement>
-        <repository>
-            <id>localRepository</id>
-            <url>file:D:/repository</url>
-        </repository>
-    </distributionManagement>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.6.3</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <doclint>none</doclint>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <keyname>5F50AFB11977EE8503DCBEEA11D290E85E530A4B</keyname>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.9.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
