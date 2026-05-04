@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.mrdjun.uid.starter.worker.dao.WorkerNodeDAO">
-    <resultMap id="workerNodeRes" type="cn.mrdjun.uid.starter.worker.entity.WorkerNodeEntity">
+<mapper namespace="io.github.sunjieyi60.uid.starter.worker.dao.WorkerNodeDAO">
+    <resultMap id="workerNodeRes" type="io.github.sunjieyi60.uid.starter.worker.entity.WorkerNodeEntity">
         <id column="ID" jdbcType="BIGINT" property="id"/>
         <result column="HOST_NAME" jdbcType="VARCHAR" property="hostName"/>
         <result column="PORT" jdbcType="VARCHAR" property="port"/>
@@ -12,12 +12,12 @@
     </resultMap>
 
     <insert id="addWorkerNode" useGeneratedKeys="true" keyProperty="id"
-            parameterType="cn.mrdjun.uid.starter.worker.entity.WorkerNodeEntity">
+            parameterType="io.github.sunjieyi60.uid.starter.worker.entity.WorkerNodeEntity">
         INSERT INTO tf_ap_worker_node(HOST_NAME, PORT, TYPE, LAUNCH_DATE, MODIFIED, CREATED)
         VALUES (#{hostName}, #{port}, #{type}, #{launchDate}, NOW(), NOW())
     </insert>
 
-    <update id="updateWorkerNode" parameterType="cn.mrdjun.uid.starter.worker.entity.WorkerNodeEntity">
+    <update id="updateWorkerNode" parameterType="io.github.sunjieyi60.uid.starter.worker.entity.WorkerNodeEntity">
         UPDATE tf_ap_worker_node
         <set>
             <if test="hostName != null and hostName != ''">HOST_NAME = #{hostName},</if>
